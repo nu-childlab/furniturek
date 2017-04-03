@@ -16,22 +16,9 @@ class Trial: Object {
     dynamic var condition = ""
     dynamic var created = NSDate()
     dynamic var trialNumber = 1
-    dynamic var imageType = ""
-    dynamic var imageName = ""
+    dynamic var aImageName = ""
+    dynamic var bImageName = ""
     
     dynamic var response = ""
     dynamic var rt: Double = 0 //reaction time in milliseconds
-    
-    dynamic var strongpx = ""
-    dynamic var weakpx = ""
-    dynamic var averagepx = ""
-    dynamic var X1biggestpx = ""
-    
-    dynamic var strongResp = 0
-    dynamic var weakResp = 0
-    dynamic var averageResp = 0
-    dynamic var X1biggestResp = 0
-    
-    dynamic var sgcorrectpx = ""
-    dynamic var sgcorrectResp = 0
 }

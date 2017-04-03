@@ -1,5 +1,5 @@
 //
-//  DotViewController.swift
+//  FurnitureController.swift
 //  furniturek
 //
 //  Created by Casey Colby on 10/20/16.
@@ -12,7 +12,7 @@ import RealmSwift
 
 @IBDesignable
 
-class DotViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class FurnitureViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     //database/experimental vars
     var i: Int = 0
@@ -23,9 +23,13 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
     //storyboard outlets
     @IBOutlet weak var character1: UIButton!
     @IBOutlet weak var character2: UIButton!
+    
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var dotDisplay: UIImageView!
     @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var leftDisplay: UIImageView!
+    @IBOutlet weak var rightDisplay: UIImageView!
+    
+    
     @IBOutlet var tapRec: UITapGestureRecognizer!
     @IBOutlet weak var leftPawButton: UIButton!
     @IBOutlet weak var rightPawButton: UIButton!
@@ -36,37 +40,13 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
     var position : CGPoint!
     var offsetY : CGFloat = 50
     var randomX : Int = 0
-    var isDotDisplayShowing = true
+    var isFurnitureShowing = true
     
     //reaction time vars
     var startTime: TimeInterval = 0
     var endTime: TimeInterval = 0
     var reactionTime: Double = 0
     
-    
-    
-    
-    //MARK: Experiment Setup
-    
-    func selectStimuli() { //by condition
-        //3 trial short version for testing/development
-        if baseTrial.subjectNumber == "s999" {
-            if baseTrial.condition == "sg" {
-                stim.shuffled = [stim.aStimuli[0], stim.aStimuli[1], stim.aStimuli[2]]
-            }
-            if baseTrial.condition == "pl" {
-               stim.shuffled = [stim.bStimuli[0], stim.bStimuli[1], stim.bStimuli[2]]
-            }
-        } else {
-        //randomize order of full array of stimuli
-            if baseTrial.condition == "sg" {
-              stim.shuffled = stim.aStimuli.randomized() as! [NSObject]
-            }
-            if baseTrial.condition == "pl" {
-               stim.shuffled = stim.bStimuli.randomized() as! [NSObject]
-            }
-        }
-    }
     
     
     //MARK: Progress-Display Setup
@@ -112,32 +92,33 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
         }
     }
     
-    func dotDisplayFlip(){
-        if (isDotDisplayShowing) {
+    func furnitureFlip(){
+        if (isFurnitureShowing) {
             
-            //hide Dots show Progress
-            UIView.transition(from: dotDisplay,
-                              to: progressView,
-                                      duration: 1.2,
-                                      options: [.transitionFlipFromLeft, .showHideTransitionViews],
-                                      completion:nil)
+            //hide furniture show Progress
+            UIView.animate(withDuration: 2.0, animations: {
+                self.leftDisplay.isHidden = true
+                self.rightDisplay.isHidden = true
+                self.progressView.isHidden = false
+            })
             hidePawButtons()
             hideCharacters()
         } else {
-            //show Dots show Progress
-            UIView.transition(from: progressView,
-                                      to: dotDisplay,
-                                      duration: 1.2,
-                                      options: [.transitionFlipFromRight, .showHideTransitionViews],
-                                      completion: {finished in
-                                        self.showCharacters()
-                                        self.startTimeAction() //start reaction timer
+            //show Furniture hide Progress
+            
+            UIView.animate(withDuration: 2.0, animations: {
+                self.leftDisplay.isHidden = false
+                self.rightDisplay.isHidden = false
+                self.progressView.isHidden = true
+            }, completion: {finished in
+                self.showCharacters()
+                self.startTimeAction()
             })
         }
-        isDotDisplayShowing = !isDotDisplayShowing
+        isFurnitureShowing = !isFurnitureShowing
         
         //pulse paws on final display
-        if i==stim.shuffled.count-1 {
+        if i==stim.aStimuli.count {
             for pawView in progressView.subviews {
                 pawView.shake(bounceMagnitude: 4.0, wiggleRotation: 0.06)
             }
@@ -181,12 +162,13 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
     
     //MARK: Experimental Actions
     
-    func nextImage() {
-        if i==stim.shuffled.count-1 {
+    func nextImages() {
+        if i==stim.aStimuli.count {
             endExperiment()
         } else {
+            leftDisplay.image = UIImage(contentsOfFile: stim.aStimuli[i] as! String)
+            rightDisplay.image = UIImage(contentsOfFile: stim.bStimuli[i] as! String)
             i+=1
-            dotDisplay.image = UIImage(contentsOfFile: stim.shuffled[i] as! String)
             character1.isEnabled = true
             character2.isEnabled = true
         }
@@ -232,13 +214,13 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
         for index in 1...i+1 {
             view.viewWithTag(index)?.alpha = 1
         }
-        dotDisplayFlip()
+        furnitureFlip()
     }
     
     @IBAction func tapToHideProgress(_ sender: UITapGestureRecognizer) {
-        if isDotDisplayShowing == false {
-            nextImage()
-            dotDisplayFlip()
+        if isFurnitureShowing == false {
+            nextImages()
+            furnitureFlip()
         }
     }
     
@@ -273,11 +255,14 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
     
     func writeTrialToRealm() {
         
-        let path = stim.shuffled[i]
-        let url = NSURL.fileURL(withPath: path as! String)
-        let fileName = url.deletingPathExtension().lastPathComponent
+        let aPath = stim.aStimuli[i]
+        let bPath = stim.bStimuli[i]
+        let aUrl = NSURL.fileURL(withPath: aPath as! String)
+        let bUrl = NSURL.fileURL(withPath: bPath as! String)
+        let aFileName = aUrl.deletingPathExtension().lastPathComponent
+        let bFileName = bUrl.deletingPathExtension().lastPathComponent
 
-        NSLog("trial number \(i+1), \(fileName)") //to aux file
+        NSLog("trial number \(i+1), a: \(aFileName), \(bFileName)") //to aux file
         NSLog("subject response : \(response)")
 
         let realm = try! Realm()
@@ -291,97 +276,10 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
             newTrial.trialNumber = i+1
             newTrial.response = response
             newTrial.rt = reactionTime
-            newTrial.imageName = fileName
-            
-            preprocessData(currentTrial: newTrial)
+            newTrial.aImageName = aFileName
+            newTrial.bImageName = bFileName
             
             realm.add(newTrial)
-        }
-    }
-    
-    func preprocessData(currentTrial: Trial) {
-        //get imageType
-        switch currentTrial.imageName {
-        case "Slide02", "Slide03", "Slide04","Slide05":
-            currentTrial.imageType = "AllT"
-        case "Slide22", "Slide23", "Slide24","Slide25":
-            currentTrial.imageType = "AllF"
-        case "Slide17", "Slide18", "Slide19","Slide20":
-            currentTrial.imageType = "ATWFlg"
-        case "Slide12", "Slide13", "Slide14","Slide15":
-            currentTrial.imageType = "ATWFsm"
-        case "Slide27", "Slide28", "Slide29", "Slide30":
-            currentTrial.imageType = "ATWFsm2"
-        case "Slide07", "Slide08", "Slide09","Slide10":
-            currentTrial.imageType = "ATWT"
-        default: break
-        }
-
-        if baseTrial.condition == "pl" {
-            //hypotheses predictions
-            switch currentTrial.imageType {
-                case "AllT":
-                    currentTrial.strongpx = "R"
-                    currentTrial.weakpx = "R"
-                    currentTrial.averagepx = "R"
-                    currentTrial.X1biggestpx = "R"
-                case "AllF":
-                    currentTrial.strongpx = "B"
-                    currentTrial.weakpx = "B"
-                    currentTrial.averagepx = "B"
-                    currentTrial.X1biggestpx = "B"
-                case "ATWFlg":
-                    currentTrial.strongpx = "B"
-                    currentTrial.weakpx = "B"
-                    currentTrial.averagepx = "R"
-                    currentTrial.X1biggestpx = "B"
-                case "ATWFsm":
-                    currentTrial.strongpx = "B"
-                    currentTrial.weakpx = "B"
-                    currentTrial.averagepx = "R"
-                    currentTrial.X1biggestpx = "R"
-                case "ATWFsm2":
-                    currentTrial.strongpx = "B"
-                    currentTrial.weakpx = "B"
-                    currentTrial.averagepx = "R"
-                    currentTrial.X1biggestpx = "R"
-                case "ATWT":
-                    currentTrial.strongpx = "B"
-                    currentTrial.weakpx = "R"
-                    currentTrial.averagepx = "R"
-                    currentTrial.X1biggestpx = "R"
-                default: break
-            }
-            
-            //response consistent with hypotheses?
-            if response == currentTrial.strongpx {
-                currentTrial.strongResp = 1
-            }
-            if response == currentTrial.weakpx {
-                currentTrial.weakResp = 1
-            }
-            if response == currentTrial.averagepx {
-                currentTrial.averageResp = 1
-            }
-            if response == currentTrial.X1biggestpx {
-                currentTrial.X1biggestResp = 1
-            }
-        }
-        
-        if baseTrial.condition == "sg" {
-            //correct answer
-            switch currentTrial.imageName {
-            case "Slide02", "Slide03", "Slide04", "Slide05", "Slide07", "Slide08", "Slide09", "Slide10", "Slide12", "Slide13", "Slide18", "Slide19", "Slide20", "Slide27", "Slide28":
-                currentTrial.sgcorrectpx = "R"
-            case "Slide14","Slide15","Slide17","Slide22","Slide23","Slide24","Slide25","Slide29","Slide30":
-                currentTrial.sgcorrectpx = "B"
-            default: break
-            }
-            
-            //subject correct?
-            if response == currentTrial.sgcorrectpx {
-                currentTrial.sgcorrectResp = 1
-            }
         }
     }
     
@@ -393,16 +291,16 @@ class DotViewController: UIViewController, UIPopoverPresentationControllerDelega
         
         redirectLogToDocuments() //send NSlog to aux file
         
-        selectStimuli()
         character1.isExclusiveTouch = true
         character2.isExclusiveTouch = true
         
-        dotDisplay.image = UIImage(contentsOfFile: stim.shuffled[i] as! String)
+        nextImages()
         startTimeAction() //for initial trial (dotDisplayFlip not called on load())
 
-        numberPaws = stim.shuffled.count
+        numberPaws = stim.aStimuli.count
         leftPawButton.isHidden = true
         rightPawButton.isHidden = true
+        progressView.isHidden = true
     }
     
     override func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {

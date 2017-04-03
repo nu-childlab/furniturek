@@ -13,7 +13,8 @@ class Stimuli {
     
     //TODO: Get both conditions and orders
     
-    var shuffled : [NSObject] = []
+    var aShuffled : [NSObject] = []
+    var bShuffled : [NSObject] = [] 
     
     let aStimuli : [NSObject] = [
         Bundle.main.path(forResource: "1At1n1s1", ofType: "png", inDirectory: "stimuli")! as NSObject,

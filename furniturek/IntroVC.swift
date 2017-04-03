@@ -193,7 +193,7 @@ class IntroViewController: UIViewController {
     //MARK: Navigation
     
     override func prepare(for segue:UIStoryboardSegue, sender:Any?) {
-        if let destination = segue.destination as? DotViewController {
+        if let destination = segue.destination as? FurnitureViewController {
             destination.baseTrial = self.trial
         }
         
