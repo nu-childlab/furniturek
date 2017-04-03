@@ -1,2 +1,2 @@
-# lgsk1
-![homescreen](/lgsk1_homeScreen.png)
+# furniturek
+<!-- ![homescreen](/lgsk1_homeScreen.png) -->
