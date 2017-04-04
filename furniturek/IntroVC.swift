@@ -57,34 +57,34 @@ class IntroViewController: UIViewController {
         
         switch tapIndex {
         case 1:
-            UIView.animate(withDuration: 0.6, animations: {
-                self.pupAlone.alpha = 1
-                self.pupAlone.shake(bounceMagnitude: 2.0, wiggleRotation: 0.03)
-            })
-        case 2:
-                self.movePuppy()
-        case 3:
-            UIView.animate(withDuration: 0.9, animations: {
-            self.containedViewRed.alpha = 1})
-        case 4:
-            UIView.animate(withDuration: 0.9, animations: {
-                self.containedViewBlue.alpha = 1})
-        case 5:
-            UIView.animate(withDuration: 0.7, animations: {
-                self.containedViewBlue.alpha = 0
-                self.containedViewRed.alpha = 0
-                self.pupAlone.isHidden = true
-            })
-            //remove ellipse
-            for layer in self.view.layer.sublayers! {
-                if(layerArray.contains(layer)){
-                    layer.removeFromSuperlayer()
-                    layerArray.remove(layer)
-                }
-            }
-            showTestDots()
-
-        case _ where (tapIndex>=4 && rightGreyReceiver.center==blueTestDot.center && leftGreyReciever.center==redTestDot.center):
+//            UIView.animate(withDuration: 0.6, animations: {
+//                self.pupAlone.alpha = 1
+//                self.pupAlone.shake(bounceMagnitude: 2.0, wiggleRotation: 0.03)
+//            })
+//        case 2:
+//                self.movePuppy()
+//        case 3:
+//            UIView.animate(withDuration: 0.9, animations: {
+//            self.containedViewRed.alpha = 1})
+//        case 4:
+//            UIView.animate(withDuration: 0.9, animations: {
+//                self.containedViewBlue.alpha = 1})
+//        case 5:
+//            UIView.animate(withDuration: 0.7, animations: {
+//                self.containedViewBlue.alpha = 0
+//                self.containedViewRed.alpha = 0
+//                self.pupAlone.isHidden = true
+//            })
+//            //remove ellipse
+//            for layer in self.view.layer.sublayers! {
+//                if(layerArray.contains(layer)){
+//                    layer.removeFromSuperlayer()
+//                    layerArray.remove(layer)
+//                }
+//            }
+//            showTestDots()
+//
+//        case _ where (tapIndex>=4 && rightGreyReceiver.center==blueTestDot.center && leftGreyReciever.center==redTestDot.center):
             self.performSegue(withIdentifier: "beginExperiment", sender: self)
             
         default:

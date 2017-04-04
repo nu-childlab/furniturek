@@ -87,7 +87,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             }
         }
         //reveal any progress made so far
-        for index in 1...i+1 {
+        for index in 1...i {
             view.viewWithTag(index)?.alpha = 1
         }
     }
@@ -163,6 +163,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     //MARK: Experimental Actions
     
     func nextImages() {
+        print("i=\(i)")
         if i==stim.aStimuli.count {
             endExperiment()
         } else {
@@ -210,8 +211,9 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
 
     @IBAction func showProgress() {
+        print("a")
         writeTrialToRealm()
-        for index in 1...i+1 {
+        for index in 1...i {
             view.viewWithTag(index)?.alpha = 1
         }
         furnitureFlip()
@@ -255,14 +257,14 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
     func writeTrialToRealm() {
         
-        let aPath = stim.aStimuli[i]
-        let bPath = stim.bStimuli[i]
+        let aPath = stim.aStimuli[i-1]
+        let bPath = stim.bStimuli[i-1]
         let aUrl = NSURL.fileURL(withPath: aPath as! String)
         let bUrl = NSURL.fileURL(withPath: bPath as! String)
         let aFileName = aUrl.deletingPathExtension().lastPathComponent
         let bFileName = bUrl.deletingPathExtension().lastPathComponent
 
-        NSLog("trial number \(i+1), a: \(aFileName), \(bFileName)") //to aux file
+        NSLog("trial number \(i-1), a: \(aFileName), \(bFileName)") //to aux file
         NSLog("subject response : \(response)")
 
         let realm = try! Realm()
@@ -273,7 +275,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             newTrial.subjectNumber = baseTrial.subjectNumber
             newTrial.condition = baseTrial.condition
             //trial-specific
-            newTrial.trialNumber = i+1
+            newTrial.trialNumber = i-1
             newTrial.response = response
             newTrial.rt = reactionTime
             newTrial.aImageName = aFileName
@@ -304,13 +306,11 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     }
     
     override func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        containerView.shadow() //redraw shadow on orientation change
         redrawPaws()
     }
     
     override func viewWillLayoutSubviews() {
         //called here in case of rotation after initial loading but before initial display
-        containerView.shadow()
         redrawPaws()
     }
 
@@ -332,22 +332,6 @@ extension Array {
     }
 }
 
-
-extension UIView {
-    func roundedCorners() {
-        self.layer.cornerRadius = 16.0
-        self.clipsToBounds = true
-    }
-    
-    func shadow(){
-        self.layer.masksToBounds = false
-        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.6
-        self.layer.shadowOffset = CGSize.zero
-        self.layer.shadowRadius = 5
-    }
-}
 
 extension TimeInterval {
 
