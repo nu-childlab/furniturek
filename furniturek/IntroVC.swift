@@ -11,7 +11,7 @@ import SwiftGifOrigin
 
 class IntroViewController: UIViewController {
 
-    let mainColor = UIColor(red: 255/255, green: 151/255, blue: 134/255, alpha: 1)
+    let mainColor = UIColor(red: 139/255, green: 167/255, blue: 215/255, alpha: 1)
     var layerArray = NSMutableArray()
     
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
@@ -56,8 +56,9 @@ class IntroViewController: UIViewController {
         case 2:
                 self.movePuppy()
         case 3:
-            UIView.animate(withDuration: 0.9, animations: {
-                self.furnitureView.alpha = 1
+            self.furnitureView.alpha = 1
+            // show furniture
+            UIView.transition(with: self.furnitureView, duration: 1.5, options: UIViewAnimationOptions.transitionCurlDown, animations: {
             })
         case 4:
             self.performSegue(withIdentifier: "beginExperiment", sender: self)

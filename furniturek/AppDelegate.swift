@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let accentColor: UIColor = UIColor(red: 68/255, green: 178/255, blue: 108/255, alpha: 1)
-        let mainColor = UIColor(red: 255/255, green: 151/255, blue: 134/255, alpha: 1)
+        let mainColor = UIColor(red: 139/255, green: 167/255, blue: 215/255, alpha: 1)
         
         // Bugfix: Tint not fully Applied to Alert Controller without Reapplying (e.g. on device rotation)
         window?.tintColor = accentColor //affects alert controller buttons

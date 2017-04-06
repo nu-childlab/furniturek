@@ -9,24 +9,24 @@
 import Foundation
 import UIKit
 
+struct singleStim {
+    let astim: String
+    let bstim: String
+}
+
 class Stimuli {
     
     //TODO: Get both conditions and orders
     
-    var aShuffled : [NSObject] = []
-    var bShuffled : [NSObject] = [] 
+    // always start with trial 1, then 24. then randomize the rest
+    var shuffledStimuli = [
+        singleStim(astim: "1At1n1s1", bstim: "1Bt0n0s0"),
+        singleStim(astim: <#T##String#>, bstim: <#T##String#>)
+        ]
     
-    let aStimuli : [NSObject] = [
-        Bundle.main.path(forResource: "1At1n1s1", ofType: "png", inDirectory: "stimuli")! as NSObject,
-        Bundle.main.path(forResource: "2At1n1s0", ofType: "png", inDirectory: "stimuli")! as NSObject,
-        Bundle.main.path(forResource: "23At0n0s1", ofType: "png", inDirectory: "stimuli")! as NSObject,
-    ]
-    
-    let bStimuli : [NSObject] = [
-        Bundle.main.path(forResource: "1Bt0n0s0", ofType: "png", inDirectory: "stimuli")! as NSObject,
-        Bundle.main.path(forResource: "2Bt0n0s1", ofType: "png", inDirectory: "stimuli")! as NSObject,
-        Bundle.main.path(forResource: "23Bt1n1s0", ofType: "png", inDirectory: "stimuli")! as NSObject,
-    ]
+    let stimuli = [singleStim(astim: "1At1n1s1", bstim: "1Bt0n0s0"), singleStim(astim: "2At1n1s0",bstim: "2Bt0n0s1")]
+
+
 
 }
 

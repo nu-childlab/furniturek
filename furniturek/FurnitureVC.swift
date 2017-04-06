@@ -48,6 +48,12 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     var reactionTime: Double = 0
     
     
+    //MARK: Experiment Setup 
+    
+    func shuffleStimuli() {
+        
+    }
+    
     
     //MARK: Progress-Display Setup
     
@@ -95,26 +101,51 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     func furnitureFlip(){
         if (isFurnitureShowing) {
             
-            //hide furniture show Progress
-            UIView.animate(withDuration: 2.0, animations: {
+            self.hidePawButtons()
+            self.hideCharacters()
+            // hide furniture show progress
+            UIView.transition(with: self.progressView, duration: 1.2, options: UIViewAnimationOptions.transitionCurlDown, animations: {
                 self.leftDisplay.isHidden = true
                 self.rightDisplay.isHidden = true
                 self.progressView.isHidden = false
             })
-            hidePawButtons()
-            hideCharacters()
-        } else {
-            //show Furniture hide Progress
+
             
-            UIView.animate(withDuration: 2.0, animations: {
-                self.leftDisplay.isHidden = false
-                self.rightDisplay.isHidden = false
+            //hide furniture show Progress
+//            UIView.animate(withDuration: 3.0, animations: {
+//                self.leftDisplay.isHidden = true
+//                self.rightDisplay.isHidden = true
+//                self.progressView.isHidden = false
+//            }, completion: {
+//                finished in
+//                self.hidePawButtons()
+//                self.hideCharacters()
+//            })
+
+        } else {
+//            //show Furniture hide Progress
+            
+//            UIView.animate(withDuration: 3.0, animations: {
+//                self.leftDisplay.isHidden = false
+//                self.rightDisplay.isHidden = false
+//                self.progressView.isHidden = true
+//            }, completion: {finished in
+//                self.showCharacters()
+//                self.startTimeAction()
+//            })
+//            
+            UIView.transition(with: self.progressView, duration: 1.2, options: UIViewAnimationOptions.transitionCurlUp, animations: {
                 self.progressView.isHidden = true
             }, completion: {finished in
+                self.leftDisplay.isHidden = false
+                self.rightDisplay.isHidden = false
                 self.showCharacters()
                 self.startTimeAction()
             })
+
         }
+        
+        
         isFurnitureShowing = !isFurnitureShowing
         
         //pulse paws on final display
@@ -163,13 +194,21 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     //MARK: Experimental Actions
     
     func nextImages() {
-        print("i=\(i)")
         if i==stim.aStimuli.count {
             endExperiment()
         } else {
-            leftDisplay.image = UIImage(contentsOfFile: stim.aStimuli[i] as! String)
-            rightDisplay.image = UIImage(contentsOfFile: stim.bStimuli[i] as! String)
+            // access a/b values from the tuple in the array element
+            let aName = stim.stimuli[i].astim
+            let bName = stim.stimuli[i].bstim
+            
+             // use imageWithContentsOfFile:. This will keep your single-use image out of the system image cache, potentially improving the memory use characteristics of your app.
+            let aPath = Bundle.main.path(forResource:aName, ofType: "png", inDirectory: "stimuli")! as NSObject
+            let bPath = Bundle.main.path(forResource:bName, ofType: "png", inDirectory: "stimuli")! as NSObject
+            leftDisplay.image = UIImage(contentsOfFile: aPath as! String)
+            rightDisplay.image = UIImage(contentsOfFile: bPath as! String)
+            
             i+=1
+            
             character1.isEnabled = true
             character2.isEnabled = true
         }
@@ -211,7 +250,6 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
 
     @IBAction func showProgress() {
-        print("a")
         writeTrialToRealm()
         for index in 1...i {
             view.viewWithTag(index)?.alpha = 1
@@ -295,6 +333,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         character1.isExclusiveTouch = true
         character2.isExclusiveTouch = true
         
+        shuffleStimuli()
         nextImages()
         startTimeAction() //for initial trial (dotDisplayFlip not called on load())
 
