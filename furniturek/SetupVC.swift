@@ -17,21 +17,8 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
     var alertController: UIAlertController!
     var errController: UIAlertController!
     
-    let brightPurple: UIColor = UIColor(red: 128/255, green: 0/255, blue: 255/255, alpha: 1)
+    let accentColor: UIColor = UIColor(red: 68/255, green: 178/255, blue: 108/255, alpha: 1)
     @IBOutlet weak var containerView: UIView!
-    var layerArray = NSMutableArray()
-    
-    
-    //MARK: Drawing
-    func drawCircle(radius: Double, offset:Double) {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: self.view.bounds.width/2 + CGFloat(offset),y: self.view.frame.height/2-80), radius: CGFloat(radius), startAngle: CGFloat(0), endAngle:CGFloat(M_PI * 2), clockwise: true)
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = circlePath.cgPath
-        shapeLayer.fillColor = brightPurple.cgColor
-        view.layer.addSublayer(shapeLayer)
-        
-        layerArray.add(shapeLayer)
-    }
     
     //MARK: Actions
     
@@ -45,20 +32,13 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
     func showAlert(){
         //initialize controller
         alertController = UIAlertController(title: "New Subject", message: "Enter Subject Information", preferredStyle: .alert)
-        alertController.view.tintColor = self.brightPurple
+        alertController.view.tintColor = self.accentColor
 
         
         //add text fields
         alertController.addTextField{ (textField:UITextField!) in
             textField.placeholder = "Subject Number"
-            textField.textColor = self.brightPurple //input text
-            textField.font = UIFont.systemFont(ofSize: 22, weight: UIFontWeightLight)
-        }
-        
-        
-        alertController.addTextField { (textField:UITextField!) in
-            textField.placeholder = "Condition (sg or pl)"
-            textField.textColor = self.brightPurple //input text
+            textField.textColor = self.accentColor //input text
             textField.font = UIFont.systemFont(ofSize: 22, weight: UIFontWeightLight)
         }
         
@@ -70,7 +50,6 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
         //in indicates the start of the closure body
         saveAction = UIAlertAction(title: "Save", style: .default, handler: {action in
             self.trial.subjectNumber = "\((self.alertController.textFields![0] as UITextField).text!)" //unwrap array UITextFields (array of type AnyObject), cast to UITextField, and get the text variable from the entry
-            self.trial.condition = "\((self.alertController.textFields![1] as UITextField).text!.lowercased())"
             
             if self.validateFields() { //require that all fields are filled before segue is called
                 if self.validateSubjectNumber() {
@@ -88,9 +67,9 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
     }
     
     func validateFields() -> Bool {
-        if trial.subjectNumber.isEmpty || trial.condition.isEmpty {
+        if trial.subjectNumber.isEmpty {
             errController = UIAlertController(title: "Validation Error", message: "All fields must be filled", preferredStyle: .alert)
-            errController.view.tintColor = self.brightPurple
+            errController.view.tintColor = self.accentColor
             
             let errAction = UIAlertAction(title: "Update Fields", style: UIAlertActionStyle.destructive) { alert in
                 self.present(self.alertController, animated: true, completion: nil)
@@ -99,21 +78,7 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
             errController.addAction(errAction)
             present(errController, animated: true, completion: nil)
             return false
-        }
-        let conditions = ["sg", "pl"]
-        if !(conditions.contains(trial.condition)) {
-            errController = UIAlertController(title: "Validation Error", message: "'sg' or 'pl' conditions only", preferredStyle: .alert)
-            errController.view.tintColor = self.brightPurple
-            
-            let errAction = UIAlertAction(title: "Update Fields", style: UIAlertActionStyle.destructive) { alert in
-                self.present(self.alertController, animated: true, completion: nil)
-            }
-            
-            errController.addAction(errAction)
-            present(errController, animated: true, completion: nil)
-            return false
-        }
-        else {
+        } else {
             return true
         }
     }
@@ -127,7 +92,7 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
             
             NSLog("validation error: \(trial.subjectNumber) already exists")
             errController = UIAlertController(title: "Validation Error", message: "\(trial.subjectNumber) already exists", preferredStyle: .alert)
-            errController.view.tintColor = self.brightPurple
+            errController.view.tintColor = self.accentColor
             
             let errAction = UIAlertAction(title: "Enter Unique Subject Number", style:UIAlertActionStyle.default) { alert in
                 NSLog("entering new subject number")
@@ -161,7 +126,6 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
         
         print(Realm.Configuration.defaultConfiguration.fileURL!) //prints database filepath to the console (simulator)
         NSLog("\n\n\nSubject Number: \(trial.subjectNumber)") //to aux file
-        NSLog("Condition: \(trial.condition)") //to aux file
         
     }
     
@@ -171,36 +135,8 @@ class SetupViewController: UIViewController, UIAlertViewDelegate{
         super.viewDidLoad()
         redirectLogToDocuments()
         
-        let angle = (-2 * 3.14/180.0)
-        containerView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
-    }
-    
-    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-    //remove circles before rotation
-        for layer in self.view.layer.sublayers! {
-            if(layerArray.contains(layer)){
-                layer.removeFromSuperlayer()
-                layerArray.remove(layer)
-            }
-        }
-    }
-    
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        //redraw circles
-        drawCircle(radius: 65,offset: -195)
-        drawCircle(radius: 55, offset: 55)
-        drawCircle(radius: 35,offset: 155)
-        drawCircle(radius: 20,offset:220)
-        drawCircle(radius: 10, offset: 260)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        //spacing: 5 between
-        drawCircle(radius: 65,offset: -195)
-        drawCircle(radius: 55, offset: 55)
-        drawCircle(radius: 35,offset: 155)
-        drawCircle(radius: 20,offset:220)
-        drawCircle(radius: 10, offset: 260)
+//        let angle = (-2 * 3.14/180.0)
+//        containerView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
     }
     
     //MARK: Navigation

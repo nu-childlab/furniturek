@@ -273,7 +273,6 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             let newTrial = Trial()
             //common
             newTrial.subjectNumber = baseTrial.subjectNumber
-            newTrial.condition = baseTrial.condition
             //trial-specific
             newTrial.trialNumber = i-1
             newTrial.response = response

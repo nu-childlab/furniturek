@@ -13,7 +13,6 @@ import RealmSwift
 class Trial: Object {
     
     dynamic var subjectNumber = ""
-    dynamic var condition = ""
     dynamic var created = NSDate()
     dynamic var trialNumber = 1
     dynamic var aImageName = ""
