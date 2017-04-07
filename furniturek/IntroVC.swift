@@ -7,60 +7,33 @@
 //
 
 import UIKit
-import SwiftGifOrigin
 
 class IntroViewController: UIViewController {
 
     let mainColor = UIColor(red: 139/255, green: 167/255, blue: 215/255, alpha: 1)
     var layerArray = NSMutableArray()
-    
     @IBOutlet var tapRecognizer: UITapGestureRecognizer!
     var tapIndex = 0
-    
     @IBOutlet weak var furnitureView: UIView!
-    
     @IBOutlet weak var boy: UIImageView!
     @IBOutlet weak var girl: UIImageView!
-    @IBOutlet weak var pupAlone: UIImageView!
-
-    
     @IBOutlet weak var navigationBarTitle: UINavigationItem!
-
     var trial = Trial()
     
     
     //MARK: Actions 
-    
-    func movePuppy() {
-        UIView.animate(withDuration: 2.5,
-                                   delay: 0.0,
-                                   options: .curveEaseOut,
-                                   animations: {
-                                    self.pupAlone.center = CGPoint(x: self.view.frame.maxX * CGFloat(1.15), y: self.view.frame.maxY * CGFloat(0.85))
-                                    self.pupAlone.transform=CGAffineTransform(scaleX: 2.0, y: 2.0)
-        },
-                                   completion: { finished in
-                                    self.pupAlone.alpha = 0
-        })
-    }
+
     
     @IBAction func tappedToContinue(_ sender: UITapGestureRecognizer) {
         tapIndex+=1
         
         switch tapIndex {
         case 1:
-            UIView.animate(withDuration: 0.6, animations: {
-                self.pupAlone.alpha = 1
-                self.pupAlone.shake(bounceMagnitude: 2.0, wiggleRotation: 0.03)
-            })
-        case 2:
-                self.movePuppy()
-        case 3:
             self.furnitureView.alpha = 1
             // show furniture
             UIView.transition(with: self.furnitureView, duration: 1.5, options: UIViewAnimationOptions.transitionCurlDown, animations: {
             })
-        case 4:
+        case 2:
             self.performSegue(withIdentifier: "beginExperiment", sender: self)
             
         default:
@@ -90,7 +63,6 @@ class IntroViewController: UIViewController {
         super.viewDidLoad()
         
         furnitureView.alpha = 0
-        pupAlone.alpha = 0
         
         tapRecognizer.isEnabled = true
         tapRecognizer.numberOfTapsRequired = 2

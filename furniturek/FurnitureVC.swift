@@ -31,12 +31,12 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
     
     @IBOutlet var tapRec: UITapGestureRecognizer!
-    @IBOutlet weak var leftPawButton: UIButton!
-    @IBOutlet weak var rightPawButton: UIButton!
+    @IBOutlet weak var leftfootprintButton: UIButton!
+    @IBOutlet weak var rightfootprintButton: UIButton!
     
     //progress vars for display
     var tag = 1
-    var numberPaws : Int!
+    var numberfootprints : Int!
     var position : CGPoint!
     var offsetY : CGFloat = 50
     var randomX : Int = 0
@@ -57,39 +57,47 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
     //MARK: Progress-Display Setup
     
-    func createPaw(offsetX: CGFloat, offsetY: CGFloat) {
+    func createfootprint(offsetX: CGFloat, offsetY: CGFloat, rotationAngle: CGFloat) {
         position.y = position.y + offsetY //update position Y, keep original position X and pick offset
-        let pawView = UIImageView()
-        pawView.image = UIImage(named: "paw.png")
-        pawView.frame = CGRect(x:position.x + offsetX, y: position.y, width: CGFloat((14.0/Double(numberPaws))*50), height: CGFloat((14.0/Double(numberPaws))*50))
-        pawView.alpha = 0.01
-        pawView.tag = tag
-        progressView.addSubview(pawView)
+        let footprintView = UIImageView()
+        if(tag == stim.shuffledStimuli.count) {
+            footprintView.image = UIImage(named: "treasure.png")
+            footprintView.alpha = 0.9
+            footprintView.frame = CGRect(x:position.x + offsetX, y: position.y, width: CGFloat((14.0/Double(numberfootprints))*120), height: CGFloat((14.0/Double(numberfootprints))*120))
+        } else {
+            footprintView.image = UIImage(named: "footprint.png")
+            footprintView.alpha = 0.01
+            footprintView.frame = CGRect(x:position.x + offsetX, y: position.y, width: CGFloat((14.0/Double(numberfootprints))*70), height: CGFloat((14.0/Double(numberfootprints))*70))
+        }
+        footprintView.transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
+        footprintView.tag = tag
+        progressView.addSubview(footprintView)
         tag+=1
     }
 
-    func redrawPaws() {
-    //first clean up any previous paws (ie if redrawing upon orientation change)
-        //remove any existing paws 
+    func redrawfootprints() {
+    //first clean up any previous footprints (ie if redrawing upon orientation change)
+        //remove any existing footprints 
         for view in progressView.subviews {
             view.removeFromSuperview()
         }
         //reset tag
         tag = 1
     //generate subviews
-        offsetY = (self.progressView.frame.height - 80)/CGFloat(numberPaws) //generate offset from view
+        offsetY = (self.progressView.frame.height - 80)/CGFloat(numberfootprints) //generate offset from view
         position = CGPoint(x:progressView.center.x, y:progressView.frame.maxY - 40) //generate position from view
-        for _ in 1...numberPaws {
-            //scale offset according to width of paw image
-            let width_multiplier = 14.0/Double(numberPaws) * 2
+        for _ in 1...numberfootprints {
+            //scale offset according to width of footprint image
+            let width_multiplier = 14.0/Double(numberfootprints) * 2
             if tag % 2 == 0 {
-                createPaw(offsetX: CGFloat(8*width_multiplier), offsetY: -offsetY)
+                createfootprint(offsetX: CGFloat(15*width_multiplier), offsetY: -offsetY, rotationAngle: 2*3.14/180.0)
+
             }
             else if tag % 3 == 0 {
-                createPaw(offsetX: CGFloat(-7*width_multiplier), offsetY: -offsetY)
+                createfootprint(offsetX: CGFloat(-9*width_multiplier), offsetY: -offsetY, rotationAngle: -2*3.14/180.0)
             }
             else {
-                createPaw(offsetX: CGFloat(-17*width_multiplier), offsetY: -offsetY)
+                createfootprint(offsetX: CGFloat(-20*width_multiplier), offsetY: -offsetY, rotationAngle: -2*3.14/180.0)
             }
         }
         //reveal any progress made so far
@@ -101,44 +109,19 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     func furnitureFlip(){
         if (isFurnitureShowing) {
             
-            self.hidePawButtons()
+            self.hidefootprintButtons()
             self.hideCharacters()
             // hide furniture show progress
             UIView.transition(with: self.progressView, duration: 1.2, options: UIViewAnimationOptions.transitionCurlDown, animations: {
-//                self.leftDisplay.isHidden = true
-//                self.rightDisplay.isHidden = true
                 self.progressView.isHidden = false
             })
 
-            
-            //hide furniture show Progress
-//            UIView.animate(withDuration: 3.0, animations: {
-//                self.leftDisplay.isHidden = true
-//                self.rightDisplay.isHidden = true
-//                self.progressView.isHidden = false
-//            }, completion: {
-//                finished in
-//                self.hidePawButtons()
-//                self.hideCharacters()
-//            })
 
         } else {
 //            //show Furniture hide Progress
-            
-//            UIView.animate(withDuration: 3.0, animations: {
-//                self.leftDisplay.isHidden = false
-//                self.rightDisplay.isHidden = false
-//                self.progressView.isHidden = true
-//            }, completion: {finished in
-//                self.showCharacters()
-//                self.startTimeAction()
-//            })
-//            
             UIView.transition(with: self.progressView, duration: 1.2, options: UIViewAnimationOptions.transitionCurlUp, animations: {
                 self.progressView.isHidden = true
             }, completion: {finished in
-//                self.leftDisplay.isHidden = false
-//                self.rightDisplay.isHidden = false
                 self.showCharacters()
                 self.startTimeAction()
             })
@@ -148,10 +131,10 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         
         isFurnitureShowing = !isFurnitureShowing
         
-        //pulse paws on final display
+        //pulse footprints on final display
         if i==stim.shuffledStimuli.count {
-            for pawView in progressView.subviews {
-                pawView.shake(bounceMagnitude: 4.0, wiggleRotation: 0.06)
+            for footprintView in progressView.subviews {
+                footprintView.shake(bounceMagnitude: 4.0, wiggleRotation: 0.06)
             }
         }
     }
@@ -159,9 +142,9 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
     //MARK: Response Buttons
     
-    func hidePawButtons() {
-        leftPawButton.isHidden = true
-        rightPawButton.isHidden = true
+    func hidefootprintButtons() {
+        leftfootprintButton.isHidden = true
+        rightfootprintButton.isHidden = true
     }
     
     func hideCharacters() {
@@ -200,8 +183,6 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             // access a/b values from the tuple in the array element
             let aName = stim.shuffledStimuli[i].astim
             let bName = stim.shuffledStimuli[i].bstim
-            print("A Name: \(aName)")
-            print("B Name: \(bName)")
             
              // use imageWithContentsOfFile:. This will keep your single-use image out of the system image cache, potentially improving the memory use characteristics of your app.
             let aPath = Bundle.main.path(forResource:aName, ofType: "png", inDirectory: "stimuli")! as NSObject
@@ -229,12 +210,12 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             switch sender{
                 case character1:
                     response="A"
-                    revealPawButton(button: leftPawButton)
+                    revealfootprintButton(button: leftfootprintButton)
                     character2.isEnabled = false
                 
                 case character2:
                     response="B"
-                    revealPawButton(button: rightPawButton)
+                    revealfootprintButton(button: rightfootprintButton)
                     character1.isEnabled = false
                 default:
                     response="NA"
@@ -244,7 +225,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
     //MARK: Progress Display Functions
     
-    func revealPawButton(button: UIButton) {
+    func revealfootprintButton(button: UIButton) {
         button.isEnabled = true
         button.isHidden = false
         pulseButton(button: button)
@@ -340,19 +321,19 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         nextImages()
         startTimeAction() //for initial trial (dotDisplayFlip not called on load())
 
-        numberPaws = stim.shuffledStimuli.count
-        leftPawButton.isHidden = true
-        rightPawButton.isHidden = true
+        numberfootprints = stim.shuffledStimuli.count
+        leftfootprintButton.isHidden = true
+        rightfootprintButton.isHidden = true
         progressView.isHidden = true
     }
     
     override func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
-        redrawPaws()
+        redrawfootprints()
     }
     
     override func viewWillLayoutSubviews() {
         //called here in case of rotation after initial loading but before initial display
-        redrawPaws()
+        redrawfootprints()
     }
 
     //MARK: Logging

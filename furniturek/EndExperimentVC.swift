@@ -10,7 +10,6 @@ import UIKit
 
 class EndExperimentViewController: UIViewController {
     
-    @IBOutlet weak var happyPupsView: UIImageView!
     @IBOutlet var tapRec: UITapGestureRecognizer!
     var i = 4
     
@@ -25,17 +24,17 @@ class EndExperimentViewController: UIViewController {
     @IBAction func tapReceived(_ sender: UITapGestureRecognizer) {
         //get touch location
            let position :CGPoint = sender.location(in: view)
-        //create and add pawPrint at touch
-            let pawPrint = UIImageView()
-            pawPrint.image = UIImage(named: "paw.png")
-            pawPrint.frame = CGRect(x: position.x, y: position.y, width: 50, height: 50)
-            self.view.addSubview(pawPrint)
+        //create and add footprintPrint at touch
+            let footprintPrint = UIImageView()
+            footprintPrint.image = UIImage(named: "footprint.png")
+            footprintPrint.frame = CGRect(x: position.x, y: position.y, width: 80, height: 80)
+            self.view.addSubview(footprintPrint)
         //for removal later
             i+=1
-            pawPrint.tag = i
+            footprintPrint.tag = i
     }
     
-    @IBAction func clearPawPrintsTapped(_ sender: Any) {
+    @IBAction func clearfootprintPrintsTapped(_ sender: Any) {
         for x in 4...i{
             let image = view.viewWithTag(x)
             image?.removeFromSuperview()
@@ -70,12 +69,6 @@ class EndExperimentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        happyPupsView.image = UIImage(named: "puppyAlone.png")
-        UIView.animate(withDuration: 0.5, delay: 6.0, options: [], animations: {
-            self.happyPupsView.loadGif(name: "puppyLove")
-        }, completion: nil)
-        let angle = (-2 * 3.14/180.0)
-        containerView.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
 
     }
 
