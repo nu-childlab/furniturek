@@ -51,7 +51,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     //MARK: Experiment Setup 
     
     func shuffleStimuli() {
-        
+        stim.shuffledStimuli += stim.stimuli.randomized() as! [singleStim]
     }
     
     
@@ -105,8 +105,8 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             self.hideCharacters()
             // hide furniture show progress
             UIView.transition(with: self.progressView, duration: 1.2, options: UIViewAnimationOptions.transitionCurlDown, animations: {
-                self.leftDisplay.isHidden = true
-                self.rightDisplay.isHidden = true
+//                self.leftDisplay.isHidden = true
+//                self.rightDisplay.isHidden = true
                 self.progressView.isHidden = false
             })
 
@@ -137,8 +137,8 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             UIView.transition(with: self.progressView, duration: 1.2, options: UIViewAnimationOptions.transitionCurlUp, animations: {
                 self.progressView.isHidden = true
             }, completion: {finished in
-                self.leftDisplay.isHidden = false
-                self.rightDisplay.isHidden = false
+//                self.leftDisplay.isHidden = false
+//                self.rightDisplay.isHidden = false
                 self.showCharacters()
                 self.startTimeAction()
             })
@@ -149,7 +149,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         isFurnitureShowing = !isFurnitureShowing
         
         //pulse paws on final display
-        if i==stim.aStimuli.count {
+        if i==stim.shuffledStimuli.count {
             for pawView in progressView.subviews {
                 pawView.shake(bounceMagnitude: 4.0, wiggleRotation: 0.06)
             }
@@ -194,12 +194,14 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     //MARK: Experimental Actions
     
     func nextImages() {
-        if i==stim.aStimuli.count {
+        if i==stim.shuffledStimuli.count {
             endExperiment()
         } else {
             // access a/b values from the tuple in the array element
-            let aName = stim.stimuli[i].astim
-            let bName = stim.stimuli[i].bstim
+            let aName = stim.shuffledStimuli[i].astim
+            let bName = stim.shuffledStimuli[i].bstim
+            print("A Name: \(aName)")
+            print("B Name: \(bName)")
             
              // use imageWithContentsOfFile:. This will keep your single-use image out of the system image cache, potentially improving the memory use characteristics of your app.
             let aPath = Bundle.main.path(forResource:aName, ofType: "png", inDirectory: "stimuli")! as NSObject
@@ -226,7 +228,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             //show button which calls progress view
             switch sender{
                 case character1:
-                    response="R"
+                    response="A"
                     revealPawButton(button: leftPawButton)
                     character2.isEnabled = false
                 
@@ -295,8 +297,9 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     
     func writeTrialToRealm() {
         
-        let aPath = stim.aStimuli[i-1]
-        let bPath = stim.bStimuli[i-1]
+        let aPath = stim.shuffledStimuli[i-1].astim
+        let bPath = stim.shuffledStimuli[i-1].bstim
+
         let aUrl = NSURL.fileURL(withPath: aPath as! String)
         let bUrl = NSURL.fileURL(withPath: bPath as! String)
         let aFileName = aUrl.deletingPathExtension().lastPathComponent
@@ -337,7 +340,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         nextImages()
         startTimeAction() //for initial trial (dotDisplayFlip not called on load())
 
-        numberPaws = stim.aStimuli.count
+        numberPaws = stim.shuffledStimuli.count
         leftPawButton.isHidden = true
         rightPawButton.isHidden = true
         progressView.isHidden = true

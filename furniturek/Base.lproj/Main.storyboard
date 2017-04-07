@@ -155,14 +155,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49Q-Ap-OwT" userLabel="Container View">
                                 <rect key="frame" x="58" y="44" width="1250" height="937"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-og-LeI">
-                                        <rect key="frame" x="0.0" y="0.0" width="1250" height="937"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="OWY-Hq-3Z6" appends="YES" id="bWb-Lw-IQg"/>
-                                        </connections>
-                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="buy-DK-O1C" userLabel="Left Display">
                                         <rect key="frame" x="-27" y="-20" width="635" height="925"/>
                                         <constraints>
@@ -177,15 +169,23 @@
                                             <constraint firstAttribute="width" secondItem="Yej-7H-pn4" secondAttribute="height" multiplier="1270:1850" id="d3n-BS-kvZ"/>
                                         </constraints>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-og-LeI">
+                                        <rect key="frame" x="-27" y="-20" width="1304" height="978"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="OWY-Hq-3Z6" appends="YES" id="bWb-Lw-IQg"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="buy-DK-O1C" firstAttribute="top" secondItem="49Q-Ap-OwT" secondAttribute="top" constant="-20" id="63X-bN-e7g" userLabel="Left Display.top = container top"/>
                                     <constraint firstAttribute="width" secondItem="49Q-Ap-OwT" secondAttribute="height" multiplier="683:512" id="ROw-MK-HMd"/>
                                     <constraint firstItem="VwG-og-LeI" firstAttribute="centerY" secondItem="49Q-Ap-OwT" secondAttribute="centerY" id="TTQ-p6-efD"/>
-                                    <constraint firstItem="VwG-og-LeI" firstAttribute="height" secondItem="49Q-Ap-OwT" secondAttribute="height" id="V1S-wE-DXN"/>
+                                    <constraint firstItem="VwG-og-LeI" firstAttribute="height" secondItem="49Q-Ap-OwT" secondAttribute="height" constant="41" id="V1S-wE-DXN"/>
                                     <constraint firstItem="VwG-og-LeI" firstAttribute="centerX" secondItem="49Q-Ap-OwT" secondAttribute="centerX" id="Ysf-c2-1VT"/>
-                                    <constraint firstItem="VwG-og-LeI" firstAttribute="width" secondItem="49Q-Ap-OwT" secondAttribute="width" id="cd4-bl-OwK"/>
+                                    <constraint firstItem="VwG-og-LeI" firstAttribute="width" secondItem="49Q-Ap-OwT" secondAttribute="width" constant="54" id="cd4-bl-OwK"/>
                                     <constraint firstItem="buy-DK-O1C" firstAttribute="leading" secondItem="49Q-Ap-OwT" secondAttribute="leading" constant="-27" id="r2y-Wv-0oK" userLabel="Left Display.left = container"/>
                                     <constraint firstItem="Yej-7H-pn4" firstAttribute="top" secondItem="49Q-Ap-OwT" secondAttribute="top" constant="-20" id="t2t-2R-rJh"/>
                                     <constraint firstAttribute="trailing" secondItem="Yej-7H-pn4" secondAttribute="trailing" constant="-27" id="ybw-8J-7Bw"/>
