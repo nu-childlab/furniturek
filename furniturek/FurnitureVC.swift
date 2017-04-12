@@ -69,15 +69,6 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         progressView.addSubview(footprintView)
         tag+=1
     }
-    
-//    func drawTreasureChest() {
-//        let treasureView = UIImageView()
-//        treasureView.image = UIImage(named: "treasure.png")
-//        treasureView.frame = CGRect(x: CGFloat(progressView.frame.maxX / 2), y: CGFloat(progressView.frame.minY + 5), width: 50, height: 50)
-//        treasureView.tag = 0
-//        treasureView.alpha = 1
-//        progressView.addSubview(treasureView)
-//    }
 
     func redrawfootprints() {
     //first clean up any previous footprints (ie if redrawing upon orientation change)

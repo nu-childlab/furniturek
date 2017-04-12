@@ -173,16 +173,43 @@
                                         <rect key="frame" x="-27" y="-20" width="1304" height="978"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="treasure.png" translatesAutoresizingMaskIntoConstraints="NO" id="S0t-Ee-Mwt">
-                                                <rect key="frame" x="568.5" y="4" width="97" height="100"/>
+                                                <rect key="frame" x="569" y="4" width="97" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="S0t-Ee-Mwt" secondAttribute="height" multiplier="38:39" id="k5e-ED-d3Q"/>
                                                     <constraint firstAttribute="height" constant="100" id="vT2-TE-cpy"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zLo-s9-GzZ">
+                                                <rect key="frame" x="463" y="646" width="178" height="120"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="zLo-s9-GzZ" secondAttribute="height" multiplier="640:431" id="F8a-iZ-yF9"/>
+                                                    <constraint firstAttribute="height" constant="120" id="mMX-9b-1Ah"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forest.png" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-yo-4JG">
+                                                <rect key="frame" x="658" y="474" width="160" height="160"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="fyY-yo-4JG" secondAttribute="height" multiplier="640:640" id="ppg-21-X4z"/>
+                                                    <constraint firstAttribute="height" constant="160" id="zkJ-TU-yIi"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pond.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-p7-oyU">
+                                                <rect key="frame" x="437" y="227" width="161" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="Ult-5N-RzT"/>
+                                                    <constraint firstAttribute="width" secondItem="Hd8-p7-oyU" secondAttribute="height" multiplier="640:509" id="kAk-m1-BkI"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
+                                            <constraint firstItem="Hd8-p7-oyU" firstAttribute="centerY" secondItem="VwG-og-LeI" secondAttribute="centerY" constant="-198" id="9uC-le-MH7"/>
+                                            <constraint firstItem="fyY-yo-4JG" firstAttribute="centerY" secondItem="VwG-og-LeI" secondAttribute="centerY" constant="64.5" id="DLY-SB-Qm6"/>
+                                            <constraint firstItem="zLo-s9-GzZ" firstAttribute="centerY" secondItem="VwG-og-LeI" secondAttribute="centerY" constant="217" id="Fyz-5g-mMD"/>
+                                            <constraint firstItem="Hd8-p7-oyU" firstAttribute="centerX" secondItem="VwG-og-LeI" secondAttribute="centerX" constant="-134.5" id="WAe-3j-Dfj"/>
+                                            <constraint firstItem="zLo-s9-GzZ" firstAttribute="centerX" secondItem="VwG-og-LeI" secondAttribute="centerX" constant="-100" id="f3b-61-5iC"/>
+                                            <constraint firstItem="fyY-yo-4JG" firstAttribute="centerX" secondItem="VwG-og-LeI" secondAttribute="centerX" constant="85.5" id="guM-le-nFx"/>
                                             <constraint firstItem="S0t-Ee-Mwt" firstAttribute="top" secondItem="VwG-og-LeI" secondAttribute="top" constant="4" id="th6-IX-f1s"/>
                                             <constraint firstItem="S0t-Ee-Mwt" firstAttribute="centerX" secondItem="VwG-og-LeI" secondAttribute="centerX" constant="-35" id="zgX-EX-ubw"/>
                                         </constraints>
@@ -552,6 +579,9 @@
         <image name="coin.png" width="640" height="383"/>
         <image name="couch s3n6.png" width="600" height="600"/>
         <image name="footprint.png" width="70" height="108"/>
+        <image name="forest.png" width="640" height="640"/>
+        <image name="park1.png" width="640" height="431"/>
+        <image name="pond.png" width="640" height="509"/>
         <image name="treasure.png" width="342" height="351"/>
     </resources>
     <color key="tintColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
