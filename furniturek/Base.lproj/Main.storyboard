@@ -171,8 +171,21 @@
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-og-LeI">
                                         <rect key="frame" x="-27" y="-20" width="1304" height="978"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="treasure.png" translatesAutoresizingMaskIntoConstraints="NO" id="S0t-Ee-Mwt">
+                                                <rect key="frame" x="568.5" y="4" width="97" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="S0t-Ee-Mwt" secondAttribute="height" multiplier="38:39" id="k5e-ED-d3Q"/>
+                                                    <constraint firstAttribute="height" constant="100" id="vT2-TE-cpy"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="S0t-Ee-Mwt" firstAttribute="top" secondItem="VwG-og-LeI" secondAttribute="top" constant="4" id="th6-IX-f1s"/>
+                                            <constraint firstItem="S0t-Ee-Mwt" firstAttribute="centerX" secondItem="VwG-og-LeI" secondAttribute="centerX" constant="-35" id="zgX-EX-ubw"/>
+                                        </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="OWY-Hq-3Z6" appends="YES" id="bWb-Lw-IQg"/>
                                         </connections>
@@ -263,6 +276,7 @@
                         <outlet property="rightDisplay" destination="Yej-7H-pn4" id="vqz-9j-2CM"/>
                         <outlet property="rightfootprintButton" destination="KT0-4D-OUt" id="wgd-vb-K66"/>
                         <outlet property="tapRec" destination="OWY-Hq-3Z6" id="Zan-8Q-a6W"/>
+                        <outlet property="treasure" destination="S0t-Ee-Mwt" id="an6-Or-Ng9"/>
                         <segue destination="UPV-IL-r08" kind="show" identifier="endExperiment" id="N5v-Hn-qwg"/>
                     </connections>
                 </viewController>

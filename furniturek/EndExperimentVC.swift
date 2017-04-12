@@ -26,7 +26,7 @@ class EndExperimentViewController: UIViewController {
            let position :CGPoint = sender.location(in: view)
         //create and add footprintPrint at touch
             let footprintPrint = UIImageView()
-            footprintPrint.image = UIImage(named: "footprint.png")
+            footprintPrint.image = UIImage(named: "coin.png")
             footprintPrint.frame = CGRect(x: position.x, y: position.y, width: 80, height: 80)
             self.view.addSubview(footprintPrint)
         //for removal later

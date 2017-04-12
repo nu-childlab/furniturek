@@ -30,6 +30,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     @IBOutlet weak var rightDisplay: UIImageView!
     
     
+    @IBOutlet weak var treasure: UIImageView!
     @IBOutlet var tapRec: UITapGestureRecognizer!
     @IBOutlet weak var leftfootprintButton: UIButton!
     @IBOutlet weak var rightfootprintButton: UIButton!
@@ -60,44 +61,64 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     func createfootprint(offsetX: CGFloat, offsetY: CGFloat, rotationAngle: CGFloat) {
         position.y = position.y + offsetY //update position Y, keep original position X and pick offset
         let footprintView = UIImageView()
-        if(tag == stim.shuffledStimuli.count) {
-            footprintView.image = UIImage(named: "treasure.png")
-            footprintView.alpha = 0.9
-            footprintView.frame = CGRect(x:position.x + offsetX, y: position.y, width: CGFloat((14.0/Double(numberfootprints))*120), height: CGFloat((14.0/Double(numberfootprints))*120))
-        } else {
-            footprintView.image = UIImage(named: "footprint.png")
-            footprintView.alpha = 0.01
-            footprintView.frame = CGRect(x:position.x + offsetX, y: position.y, width: CGFloat((14.0/Double(numberfootprints))*70), height: CGFloat((14.0/Double(numberfootprints))*70))
-        }
+        footprintView.image = UIImage(named: "footprint.png")
+        footprintView.alpha = 0.01
+        footprintView.frame = CGRect(x:position.x + offsetX, y: position.y, width: CGFloat((14.0/Double(numberfootprints))*50), height: CGFloat((14.0/Double(numberfootprints))*50))
         footprintView.transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
         footprintView.tag = tag
         progressView.addSubview(footprintView)
         tag+=1
     }
+    
+//    func drawTreasureChest() {
+//        let treasureView = UIImageView()
+//        treasureView.image = UIImage(named: "treasure.png")
+//        treasureView.frame = CGRect(x: CGFloat(progressView.frame.maxX / 2), y: CGFloat(progressView.frame.minY + 5), width: 50, height: 50)
+//        treasureView.tag = 0
+//        treasureView.alpha = 1
+//        progressView.addSubview(treasureView)
+//    }
 
     func redrawfootprints() {
     //first clean up any previous footprints (ie if redrawing upon orientation change)
-        //remove any existing footprints 
+        //remove any existing footprints
         for view in progressView.subviews {
-            view.removeFromSuperview()
+            if (view.tag > 0) {
+                view.removeFromSuperview()
+            }
         }
         //reset tag
         tag = 1
     //generate subviews
-        offsetY = (self.progressView.frame.height - 80)/CGFloat(numberfootprints) //generate offset from view
-        position = CGPoint(x:progressView.center.x, y:progressView.frame.maxY - 40) //generate position from view
+        offsetY = (self.progressView.frame.height - 50)/CGFloat(numberfootprints) //generate offset from view
+        position = CGPoint(x:progressView.center.x, y:progressView.frame.maxY - 5) //generate position from view
         for _ in 1...numberfootprints {
             //scale offset according to width of footprint image
             let width_multiplier = 14.0/Double(numberfootprints) * 2
-            if tag % 2 == 0 {
-                createfootprint(offsetX: CGFloat(15*width_multiplier), offsetY: -offsetY, rotationAngle: 2*3.14/180.0)
+            if (tag % 8 == 1 || tag == 1) {
+                createfootprint(offsetX: CGFloat(0*width_multiplier), offsetY: -offsetY, rotationAngle: -50*3.14/180.0)
+            }
+            else if (tag % 8 == 2 || tag == 2) {
+                createfootprint(offsetX: CGFloat(-25*width_multiplier), offsetY: -offsetY, rotationAngle: -40*3.14/180.0)
 
             }
-            else if tag % 3 == 0 {
-                createfootprint(offsetX: CGFloat(-9*width_multiplier), offsetY: -offsetY, rotationAngle: -2*3.14/180.0)
+            else if (tag % 8 == 3 || tag == 3) {
+                createfootprint(offsetX: CGFloat(-55*width_multiplier), offsetY: -offsetY, rotationAngle: 5*3.14/180.0)
             }
-            else {
-                createfootprint(offsetX: CGFloat(-20*width_multiplier), offsetY: -offsetY, rotationAngle: -2*3.14/180.0)
+            else if (tag % 8 == 4 || tag == 4) {
+                createfootprint(offsetX: CGFloat(-25*width_multiplier), offsetY: -offsetY, rotationAngle: 65*3.14/180.0)
+            }
+            else if(tag % 8 == 5 || tag == 5) {
+                createfootprint(offsetX: CGFloat(10*width_multiplier), offsetY: -offsetY, rotationAngle: 50*3.14/180.0)
+            }
+            else if(tag % 8 == 6 || tag == 6) {
+                createfootprint(offsetX: CGFloat(35*width_multiplier), offsetY: -offsetY, rotationAngle: 40*3.14/180.0)
+            }
+            else if(tag % 8 == 7 || tag == 7) {
+                createfootprint(offsetX: CGFloat(55*width_multiplier), offsetY: -offsetY, rotationAngle: -5*3.14/180.0)
+            }
+            else if(tag % 8 == 0 || tag == 8) {
+                createfootprint(offsetX: CGFloat(35*width_multiplier), offsetY: -offsetY, rotationAngle: -60*3.14/180.0)
             }
         }
         //reveal any progress made so far

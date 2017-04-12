@@ -7,7 +7,6 @@ target 'furniturek' do
 
   # Pods for furniturek
   pod 'RealmSwift'
-  pod 'SwiftGifOrigin', '~> 1.6.1'
     
 
 end
