@@ -519,14 +519,17 @@
                                 <rect key="frame" x="0.0" y="70" width="1366" height="954"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Furniture - opening slide.png" translatesAutoresizingMaskIntoConstraints="NO" id="eHG-oE-qdv">
-                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="982"/>
+                                        <rect key="frame" x="0.0" y="-14" width="1366" height="982"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="eHG-oE-qdv" secondAttribute="height" multiplier="683:491" id="uYC-t6-62H"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="eHG-oE-qdv" firstAttribute="top" secondItem="q8F-xK-9fL" secondAttribute="top" id="JGt-aI-YbT"/>
+                                    <constraint firstItem="eHG-oE-qdv" firstAttribute="centerX" secondItem="q8F-xK-9fL" secondAttribute="centerX" id="4po-qG-pPM"/>
                                     <constraint firstAttribute="trailing" secondItem="eHG-oE-qdv" secondAttribute="trailing" id="Won-4x-wLl"/>
-                                    <constraint firstAttribute="bottom" secondItem="eHG-oE-qdv" secondAttribute="bottom" constant="-28" id="elR-gG-K1f"/>
+                                    <constraint firstItem="eHG-oE-qdv" firstAttribute="centerY" secondItem="q8F-xK-9fL" secondAttribute="centerY" id="XHl-49-K5R"/>
                                     <constraint firstItem="eHG-oE-qdv" firstAttribute="leading" secondItem="q8F-xK-9fL" secondAttribute="leading" id="loN-wM-ETv"/>
                                 </constraints>
                             </view>

@@ -293,8 +293,8 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         let aPath = stim.shuffledStimuli[i-1].astim
         let bPath = stim.shuffledStimuli[i-1].bstim
 
-        let aUrl = NSURL.fileURL(withPath: aPath as! String)
-        let bUrl = NSURL.fileURL(withPath: bPath as! String)
+        let aUrl = NSURL.fileURL(withPath: aPath)
+        let bUrl = NSURL.fileURL(withPath: bPath)
         let aFileName = aUrl.deletingPathExtension().lastPathComponent
         let bFileName = bUrl.deletingPathExtension().lastPathComponent
 
