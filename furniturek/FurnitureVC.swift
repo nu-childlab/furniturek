@@ -19,6 +19,15 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     let stim = Stimuli()
     var baseTrial = Trial()
     var response = ""
+    var aName = ""
+    var bName = ""
+    
+    var typePx = ""
+    var numPx = ""
+    var sizePx = ""
+    var correctByType = 0
+    var correctByNum = 0
+    var correctBySize = 0
     
     //storyboard outlets
     @IBOutlet weak var character1: UIButton!
@@ -193,8 +202,8 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             endExperiment()
         } else {
             // access a/b values from the tuple in the array element
-            let aName = stim.shuffledStimuli[i].astim
-            let bName = stim.shuffledStimuli[i].bstim
+            aName = stim.shuffledStimuli[i].astim
+            bName = stim.shuffledStimuli[i].bstim
             
              // use imageWithContentsOfFile:. This will keep your single-use image out of the system image cache, potentially improving the memory use characteristics of your app.
             let aPath = Bundle.main.path(forResource:aName, ofType: "png", inDirectory: "stimuli")! as NSObject
@@ -285,16 +294,77 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         endTime = 0
     }
     
+    // MARK: Data preprocessing
+    
+    func preprocessData() {
+        
+        // using filenames -- some have 8 characters if number is 1 digit, else 9 if number if > 10 
+        // so if length of aName is 8, add a "0" to the front so the indexes match across all images
+        if(aName.characters.count == 8) {
+            aName = "0" + aName
+        }
+        
+        // predictions by hypothesis using image filenames
+        let tIndexA = aName.index(aName.startIndex, offsetBy: 4)
+        print(aName)
+        print(aName[tIndexA])
+        switch aName[tIndexA] {
+        case "1":
+            typePx = "A"
+        case "0":
+            typePx = "B"
+        default:
+            typePx = "NA"
+        }
+        
+        let nIndexA = aName.index(aName.startIndex, offsetBy: 6)
+        switch aName[nIndexA] {
+            case "1":
+                numPx = "A"
+            case "0":
+                numPx = "B"
+            default:
+                numPx = "NA"
+        }
+        
+        let sIndexA = aName.index(aName.startIndex, offsetBy: 8)
+        switch aName[sIndexA] {
+            case "1":
+                sizePx = "A"
+            case "0":
+                sizePx = "B"
+            default:
+                sizePx = "NA"
+        }
+        
+        // correcty by hypothesis by comparing predictions to responses
+        if(response == typePx) {
+            correctByType = 1
+        } else {
+            correctByType = 0
+        }
+        if(response == numPx) {
+            correctByNum = 1
+        } else {
+            correctByNum = 0
+        }
+        if(response == sizePx) {
+            correctBySize = 1
+        } else {
+            correctBySize = 0
+        }
+        
+    }
+    
     
     //MARK: Realm Database
     
     func writeTrialToRealm() {
         
-        let aPath = stim.shuffledStimuli[i-1].astim
-        let bPath = stim.shuffledStimuli[i-1].bstim
+        preprocessData()
 
-        let aUrl = NSURL.fileURL(withPath: aPath)
-        let bUrl = NSURL.fileURL(withPath: bPath)
+        let aUrl = NSURL.fileURL(withPath: aName)
+        let bUrl = NSURL.fileURL(withPath: bName)
         let aFileName = aUrl.deletingPathExtension().lastPathComponent
         let bFileName = bUrl.deletingPathExtension().lastPathComponent
 
@@ -308,11 +378,18 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             //common
             newTrial.subjectNumber = baseTrial.subjectNumber
             //trial-specific
-            newTrial.trialNumber = i-1
+            newTrial.trialNumber = i
             newTrial.response = response
             newTrial.rt = reactionTime
             newTrial.aImageName = aFileName
             newTrial.bImageName = bFileName
+            // preprocessing
+            newTrial.typePx = typePx
+            newTrial.numPx = numPx
+            newTrial.sizePx = sizePx
+            newTrial.correctByType = correctByType
+            newTrial.correctByNum = correctByNum
+            newTrial.correctBySize = correctBySize
             
             realm.add(newTrial)
         }
