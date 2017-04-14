@@ -306,8 +306,6 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
         
         // predictions by hypothesis using image filenames
         let tIndexA = aName.index(aName.startIndex, offsetBy: 4)
-        print(aName)
-        print(aName[tIndexA])
         switch aName[tIndexA] {
         case "1":
             typePx = "A"

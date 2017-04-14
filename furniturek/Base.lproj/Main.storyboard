@@ -153,24 +153,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="49Q-Ap-OwT" userLabel="Container View">
-                                <rect key="frame" x="58" y="44" width="1250" height="937"/>
+                                <rect key="frame" x="58" y="49.5" width="1250" height="925"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="buy-DK-O1C" userLabel="Left Display">
-                                        <rect key="frame" x="-27" y="-20" width="635" height="925"/>
+                                        <rect key="frame" x="-27" y="0.0" width="635" height="925"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="buy-DK-O1C" secondAttribute="height" multiplier="1270:1850" id="16g-u3-bes"/>
-                                            <constraint firstAttribute="height" constant="925" id="Yco-uZ-IeP"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yej-7H-pn4" userLabel="Right Display">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yej-7H-pn4" userLabel="Right Display">
                                         <rect key="frame" x="642" y="-20" width="635" height="925"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="925" id="YGk-R1-T9Z"/>
                                             <constraint firstAttribute="width" secondItem="Yej-7H-pn4" secondAttribute="height" multiplier="1270:1850" id="d3n-BS-kvZ"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-og-LeI">
-                                        <rect key="frame" x="-27" y="-20" width="1304" height="978"/>
+                                        <rect key="frame" x="-27" y="-20" width="1304" height="966"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="treasure.png" translatesAutoresizingMaskIntoConstraints="NO" id="S0t-Ee-Mwt">
                                                 <rect key="frame" x="569" y="4" width="97" height="100"/>
@@ -180,21 +178,21 @@
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park1.png" translatesAutoresizingMaskIntoConstraints="NO" id="zLo-s9-GzZ">
-                                                <rect key="frame" x="463" y="646" width="178" height="120"/>
+                                                <rect key="frame" x="463" y="640" width="178" height="120"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="zLo-s9-GzZ" secondAttribute="height" multiplier="640:431" id="F8a-iZ-yF9"/>
                                                     <constraint firstAttribute="height" constant="120" id="mMX-9b-1Ah"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forest.png" translatesAutoresizingMaskIntoConstraints="NO" id="fyY-yo-4JG">
-                                                <rect key="frame" x="658" y="474" width="160" height="160"/>
+                                                <rect key="frame" x="658" y="468" width="160" height="160"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="fyY-yo-4JG" secondAttribute="height" multiplier="640:640" id="ppg-21-X4z"/>
                                                     <constraint firstAttribute="height" constant="160" id="zkJ-TU-yIi"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pond.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hd8-p7-oyU">
-                                                <rect key="frame" x="437" y="227" width="161" height="128"/>
+                                                <rect key="frame" x="437" y="221" width="161" height="128"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="128" id="Ult-5N-RzT"/>
                                                     <constraint firstAttribute="width" secondItem="Hd8-p7-oyU" secondAttribute="height" multiplier="640:509" id="kAk-m1-BkI"/>
@@ -220,15 +218,18 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="buy-DK-O1C" firstAttribute="top" secondItem="49Q-Ap-OwT" secondAttribute="top" constant="-20" id="63X-bN-e7g" userLabel="Left Display.top = container top"/>
-                                    <constraint firstAttribute="width" secondItem="49Q-Ap-OwT" secondAttribute="height" multiplier="683:512" id="ROw-MK-HMd"/>
+                                    <constraint firstAttribute="trailing" secondItem="Yej-7H-pn4" secondAttribute="trailing" constant="-27" id="AEQ-Ja-6JB"/>
+                                    <constraint firstItem="Yej-7H-pn4" firstAttribute="leading" secondItem="buy-DK-O1C" secondAttribute="trailing" constant="34" id="GVV-iM-esh"/>
+                                    <constraint firstItem="Yej-7H-pn4" firstAttribute="height" secondItem="49Q-Ap-OwT" secondAttribute="height" id="L6H-sa-gml"/>
+                                    <constraint firstItem="buy-DK-O1C" firstAttribute="leading" secondItem="49Q-Ap-OwT" secondAttribute="leading" constant="-27" id="O7i-lL-4xH"/>
+                                    <constraint firstItem="buy-DK-O1C" firstAttribute="height" secondItem="49Q-Ap-OwT" secondAttribute="height" id="QtB-oH-Vxd"/>
                                     <constraint firstItem="VwG-og-LeI" firstAttribute="centerY" secondItem="49Q-Ap-OwT" secondAttribute="centerY" id="TTQ-p6-efD"/>
                                     <constraint firstItem="VwG-og-LeI" firstAttribute="height" secondItem="49Q-Ap-OwT" secondAttribute="height" constant="41" id="V1S-wE-DXN"/>
                                     <constraint firstItem="VwG-og-LeI" firstAttribute="centerX" secondItem="49Q-Ap-OwT" secondAttribute="centerX" id="Ysf-c2-1VT"/>
                                     <constraint firstItem="VwG-og-LeI" firstAttribute="width" secondItem="49Q-Ap-OwT" secondAttribute="width" constant="54" id="cd4-bl-OwK"/>
-                                    <constraint firstItem="buy-DK-O1C" firstAttribute="leading" secondItem="49Q-Ap-OwT" secondAttribute="leading" constant="-27" id="r2y-Wv-0oK" userLabel="Left Display.left = container"/>
-                                    <constraint firstItem="Yej-7H-pn4" firstAttribute="top" secondItem="49Q-Ap-OwT" secondAttribute="top" constant="-20" id="t2t-2R-rJh"/>
-                                    <constraint firstAttribute="trailing" secondItem="Yej-7H-pn4" secondAttribute="trailing" constant="-27" id="ybw-8J-7Bw"/>
+                                    <constraint firstItem="buy-DK-O1C" firstAttribute="centerY" secondItem="49Q-Ap-OwT" secondAttribute="centerY" id="eGs-f8-Ke1"/>
+                                    <constraint firstItem="Yej-7H-pn4" firstAttribute="width" secondItem="buy-DK-O1C" secondAttribute="width" id="xaD-Zd-oQA"/>
+                                    <constraint firstItem="Yej-7H-pn4" firstAttribute="centerY" secondItem="49Q-Ap-OwT" secondAttribute="centerY" id="yvW-dY-Mpn"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rif-br-TEm">
@@ -502,14 +503,14 @@
                                 </items>
                             </navigationBar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Boy.png" translatesAutoresizingMaskIntoConstraints="NO" id="uaS-0X-Z0Y">
-                                <rect key="frame" x="346" y="315" width="275" height="494"/>
+                                <rect key="frame" x="345.5" y="315" width="275" height="494"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="92r-lr-wVQ"/>
                                     <constraint firstAttribute="width" secondItem="uaS-0X-Z0Y" secondAttribute="height" multiplier="181:325" id="wPt-tg-5gc"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Girl.png" translatesAutoresizingMaskIntoConstraints="NO" id="ysP-l4-YCT">
-                                <rect key="frame" x="746" y="335" width="275" height="454"/>
+                                <rect key="frame" x="745.5" y="335" width="275" height="454"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ysP-l4-YCT" secondAttribute="height" multiplier="197:325" id="J1F-dM-wpQ"/>
                                     <constraint firstAttribute="width" constant="275" id="mf6-vL-awL"/>
