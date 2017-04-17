@@ -22,6 +22,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     var aName = ""
     var bName = ""
     
+    var ratio = 0.0
     var typePx = ""
     var numPx = ""
     var sizePx = ""
@@ -297,6 +298,18 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     // MARK: Data preprocessing
     
     func preprocessData() {
+        // ratio by imagename
+        switch aName {
+        case "1At1n1s1", "24At0n0s0", "11At1n0s1", "7At0n0s1","14At0n1s0","21At1n0s0","4At1n0s0", "18At1n1s0":
+            ratio  = 2
+        case "23At0n0s1", "16At0n0s0", "10At1n1s0", "13At0n1s1", "6At0n1s0","20At1n0s1","17At1n1s1", "3At1n0s0":
+            ratio = 1.3
+        case "22At0n1s0","2At1n1s0","19At1n0s1" , "5At0n1s1", "8At0n0s0","9At1n1s1","12At1n0s0","15At0n0s1":
+            ratio = 1.5
+        default:
+            ratio = 0.0
+        }
+        
         
         // using filenames -- some have 8 characters if number is 1 digit, else 9 if number if > 10 
         // so if length of aName is 8, add a "0" to the front so the indexes match across all images
@@ -382,6 +395,7 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
             newTrial.aImageName = aFileName
             newTrial.bImageName = bFileName
             // preprocessing
+            newTrial.ratio = ratio
             newTrial.typePx = typePx
             newTrial.numPx = numPx
             newTrial.sizePx = sizePx

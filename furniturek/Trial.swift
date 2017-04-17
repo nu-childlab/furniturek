@@ -21,6 +21,7 @@ class Trial: Object {
     dynamic var response = ""
     dynamic var rt: Double = 0 //reaction time in milliseconds
     
+    dynamic var ratio = 0.0
     dynamic var typePx = ""
     dynamic var numPx = ""
     dynamic var sizePx = ""
