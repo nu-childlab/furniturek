@@ -25,7 +25,7 @@ class Stimuli {
         ]
     
     let stimuli = [singleStim(astim: "2At1n1s0", bstim: "2Bt0n0s1"),
-                   singleStim(astim: "3At1n0s0",bstim: "3Bt0n1s0"),
+                   singleStim(astim: "3At1n0s1",bstim: "3Bt0n1s0"),
                    singleStim(astim: "4At1n0s0", bstim: "4Bt0n1s1"),
                    singleStim(astim: "5At0n1s1", bstim: "5Bt1n0s0"),
                    singleStim(astim: "6At0n1s0", bstim: "6Bt1n0s1"),
@@ -42,13 +42,11 @@ class Stimuli {
                    singleStim(astim: "17At1n1s1", bstim: "17Bt0n0s0"),
                    singleStim(astim: "18At1n1s0", bstim: "18Bt0n0s1"),
                    singleStim(astim: "19At1n0s1", bstim: "19Bt0n1s0"),
-                   singleStim(astim: "20At1n0s1", bstim: "20Bt0n1s0"),
-                   singleStim(astim: "21At1n0s0", bstim: "21Bt0n1s1"),
+                   singleStim(astim: "20At1n0s0", bstim: "20Bt0n1s1"),
+                   singleStim(astim: "21At0n1s1", bstim: "21Bt1n0s0"),
                    singleStim(astim: "22At0n1s0", bstim: "22Bt1n0s1"),
                    singleStim(astim: "23At0n0s1", bstim: "23Bt1n1s0")
                 ]
-
-
 
 }
 

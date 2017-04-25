@@ -300,9 +300,9 @@ class FurnitureViewController: UIViewController, UIPopoverPresentationController
     func preprocessData() {
         // ratio by imagename
         switch aName {
-        case "1At1n1s1", "24At0n0s0", "11At1n0s1", "7At0n0s1","14At0n1s0","21At1n0s0","4At1n0s0", "18At1n1s0":
+        case "1At1n1s1", "24At0n0s0", "11At1n0s1", "7At0n0s1","14At0n1s0","21At0n1s1","4At1n0s0", "18At1n1s0":
             ratio  = 2
-        case "23At0n0s1", "16At0n0s0", "10At1n1s0", "13At0n1s1", "6At0n1s0","20At1n0s1","17At1n1s1", "3At1n0s0":
+        case "23At0n0s1", "16At0n0s0", "10At1n1s0", "13At0n1s1", "6At0n1s0","20At1n0s0","17At1n1s1", "3At1n0s1":
             ratio = 1.3
         case "22At0n1s0","2At1n1s0","19At1n0s1" , "5At0n1s1", "8At0n0s0","9At1n1s1","12At1n0s0","15At0n0s1":
             ratio = 1.5
